@@ -27,16 +27,17 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(R.layout.activity_base);
-        ButterKnife.bind(this);
+        container = ButterKnife.findById(this, R.id.content_container);
         View view = LayoutInflater.from(this).inflate(layoutResID, null);
         container.addView(view);
+        ButterKnife.bind(this);
         initBottomBar();
     }
 

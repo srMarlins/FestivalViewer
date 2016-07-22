@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.home.api.model;
+package com.srmarlins.vertex.home.instagram.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

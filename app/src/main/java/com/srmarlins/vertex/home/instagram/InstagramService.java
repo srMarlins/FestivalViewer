@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.home.api;
+package com.srmarlins.vertex.home.instagram;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

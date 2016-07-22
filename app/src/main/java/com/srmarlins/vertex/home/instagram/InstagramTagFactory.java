@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.home.api;
+package com.srmarlins.vertex.home.instagram;
 
 import java.util.ArrayList;
 import java.util.List;
