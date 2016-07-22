@@ -25,7 +25,7 @@ public class HomeActivity extends BaseActivity implements VertexApi.InstagramPho
 
     @Override
     public void onPhotosReceived(List<InstagramMedia> photoUrl) {
-        Toast.makeText(HomeActivity.this, "Photos received", Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this, "Photos received :" + photoUrl.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

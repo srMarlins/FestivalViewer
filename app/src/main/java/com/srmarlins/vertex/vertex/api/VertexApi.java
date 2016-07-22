@@ -43,23 +43,9 @@ public class VertexApi {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new WebViewInterface(photoListener), "HTMLOUT");
         webView.setWebViewClient(new WebViewClient() {
-            public boolean isRedirected = false;
-
             @Override
             public void onPageFinished(WebView view, String url) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        webView.loadUrl("javascript:document.getElementsByClassName('_1ooyk')[0].click();window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(BASE_URL + "/explore/tags/vertex2016");
-                isRedirected = true;
-                return true;
+                webView.loadUrl("javascript:document.getElementsByClassName('_1ooyk')[0].click();window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
             }
         });
         webView.loadUrl(BASE_URL + "/explore/tags/vertex2016");
@@ -75,15 +61,19 @@ public class VertexApi {
     class WebViewInterface {
         private InstagramPhotoListener listener;
 
-        public WebViewInterface(InstagramPhotoListener listener){
+        public WebViewInterface(InstagramPhotoListener listener) {
             this.listener = listener;
         }
+
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            InstagramParser instagramParser = new InstagramParser();
-            List<InstagramMedia> tagUrls = instagramParser.parseHtmlForImageUrls(html);
-            listener.onPhotosReceived(tagUrls);
+            if(listener != null) {
+                InstagramParser instagramParser = new InstagramParser();
+                List<InstagramMedia> tagUrls = instagramParser.parseHtmlForImageUrls(html);
+                listener.onPhotosReceived(tagUrls);
+                listener = null;
+            }
         }
     }
 
