@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/toolbar_collapsed_logo"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/vertex" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:id="@+id/placeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true" />
+
+    <com.cleveroad.loopbar.widget.LoopBarView
+        android:id="@+id/endlessView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:background="@color/colorPrimary"
+        app:enls_listBackground="@color/colorPrimary"
+        app:enls_orientation="horizontal"
+        app:enls_overlaySize="5dp"
+        app:enls_placeholderId="@id/placeHolder"
+        app:enls_selectionBackground="@color/colorAccent"
+        app:enls_selectionGravity="start"
+        app:enls_selectionMargin="10dp" />
+
+    <FrameLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/endlessView"
+        android:layout_below="@+id/toolbar" />
+
+</RelativeLayout>
