@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.vertex.api;
+package com.srmarlins.vertex.home.api;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

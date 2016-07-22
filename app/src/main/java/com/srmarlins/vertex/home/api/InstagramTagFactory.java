@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.vertex.api;
+package com.srmarlins.vertex.home.api;
 
 import java.util.ArrayList;
 import java.util.List;

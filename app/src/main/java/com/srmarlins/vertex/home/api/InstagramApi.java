@@ -1,40 +1,34 @@
-package com.srmarlins.vertex.vertex.api;
+package com.srmarlins.vertex.home.api;
 
 import android.content.Context;
-import android.os.Handler;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.srmarlins.vertex.R;
-import com.srmarlins.vertex.vertex.api.model.InstagramMedia;
+import com.srmarlins.vertex.home.api.model.InstagramMedia;
 
 import java.util.List;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by JaredFowler on 7/21/2016.
  */
-public class VertexApi {
+public class InstagramApi {
 
     private static final String BASE_URL = "http://www.instagram.com";
 
-    public static VertexApi api;
+    public static InstagramApi api;
 
     private WebView webView;
 
-    public static VertexApi getInstance() {
-        if (api == null) {
-            api = new VertexApi();
-        }
-        return api;
+    private InstagramApi() {
     }
 
-    private VertexApi() {
+    public static InstagramApi getInstance() {
+        if (api == null) {
+            api = new InstagramApi();
+        }
+        return api;
     }
 
     @JavascriptInterface
@@ -68,7 +62,7 @@ public class VertexApi {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            if(listener != null) {
+            if (listener != null) {
                 InstagramParser instagramParser = new InstagramParser();
                 List<InstagramMedia> tagUrls = instagramParser.parseHtmlForImageUrls(html);
                 listener.onPhotosReceived(tagUrls);

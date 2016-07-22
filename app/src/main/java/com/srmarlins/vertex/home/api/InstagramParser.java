@@ -1,6 +1,6 @@
-package com.srmarlins.vertex.vertex.api;
+package com.srmarlins.vertex.home.api;
 
-import com.srmarlins.vertex.vertex.api.model.InstagramMedia;
+import com.srmarlins.vertex.home.api.model.InstagramMedia;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

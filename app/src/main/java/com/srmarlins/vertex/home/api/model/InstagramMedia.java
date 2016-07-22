@@ -1,4 +1,4 @@
-package com.srmarlins.vertex.vertex.api.model;
+package com.srmarlins.vertex.home.api.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

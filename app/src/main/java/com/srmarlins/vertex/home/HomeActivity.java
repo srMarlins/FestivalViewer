@@ -5,21 +5,21 @@ import android.widget.Toast;
 
 import com.srmarlins.vertex.R;
 import com.srmarlins.vertex.common.BaseActivity;
-import com.srmarlins.vertex.vertex.api.InstagramTagFactory;
-import com.srmarlins.vertex.vertex.api.VertexApi;
-import com.srmarlins.vertex.vertex.api.model.InstagramMedia;
+import com.srmarlins.vertex.home.api.InstagramTagFactory;
+import com.srmarlins.vertex.home.api.InstagramApi;
+import com.srmarlins.vertex.home.api.model.InstagramMedia;
 
 import java.util.List;
 
-public class HomeActivity extends BaseActivity implements VertexApi.InstagramPhotoListener{
+public class HomeActivity extends BaseActivity implements InstagramApi.InstagramPhotoListener{
 
-    private VertexApi vertexApi;
+    private InstagramApi vertexApi;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        vertexApi = VertexApi.getInstance();
+        vertexApi = InstagramApi.getInstance();
         vertexApi.getInstagramTagUrls(this, this, InstagramTagFactory.getTags());
     }
 
