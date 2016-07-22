@@ -9,23 +9,40 @@ import android.text.TextUtils;
  */
 public class InstagramMedia implements Parcelable {
 
-    public enum Type {
-        VIDEO,
-        PHOTO
-    }
+    public static final Creator<InstagramMedia> CREATOR = new Creator<InstagramMedia>() {
+        @Override
+        public InstagramMedia createFromParcel(Parcel source) {
+            return new InstagramMedia(source);
+        }
 
+        @Override
+        public InstagramMedia[] newArray(int size) {
+            return new InstagramMedia[size];
+        }
+    };
     private Type type;
     private String url;
     private String description;
 
-    public InstagramMedia(){
+    public InstagramMedia() {
 
     }
 
-    public InstagramMedia(String url, String description, Type type){
+    public InstagramMedia(String url, String description, Type type) {
         this.url = url;
         this.type = type;
         this.description = description;
+    }
+
+    protected InstagramMedia(Parcel in) {
+        int tmpType = in.readInt();
+        this.type = tmpType == -1 ? null : Type.values()[tmpType];
+        this.url = in.readString();
+        this.description = in.readString();
+    }
+
+    public static Type stringToType(String type) {
+        return TextUtils.isEmpty(type) ? Type.PHOTO : Type.VIDEO;
     }
 
     public Type getType() {
@@ -52,10 +69,6 @@ public class InstagramMedia implements Parcelable {
         this.description = description;
     }
 
-    public static Type stringToType(String type){
-        return TextUtils.isEmpty(type) ? Type.PHOTO : Type.VIDEO;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -68,22 +81,8 @@ public class InstagramMedia implements Parcelable {
         dest.writeString(this.description);
     }
 
-    protected InstagramMedia(Parcel in) {
-        int tmpType = in.readInt();
-        this.type = tmpType == -1 ? null : Type.values()[tmpType];
-        this.url = in.readString();
-        this.description = in.readString();
+    public enum Type {
+        VIDEO,
+        PHOTO
     }
-
-    public static final Creator<InstagramMedia> CREATOR = new Creator<InstagramMedia>() {
-        @Override
-        public InstagramMedia createFromParcel(Parcel source) {
-            return new InstagramMedia(source);
-        }
-
-        @Override
-        public InstagramMedia[] newArray(int size) {
-            return new InstagramMedia[size];
-        }
-    };
 }

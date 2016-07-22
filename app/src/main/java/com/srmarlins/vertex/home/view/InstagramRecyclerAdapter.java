@@ -35,7 +35,7 @@ public class InstagramRecyclerAdapter extends ParallaxRecyclerAdapter<InstagramM
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolderImpl(ViewGroup viewGroup, ParallaxRecyclerAdapter<InstagramMedia> parallaxRecyclerAdapter, int i) {
-        LayoutInflater inflater = (LayoutInflater) viewGroup.getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        LayoutInflater inflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return new MediaViewHolder(inflater.inflate(R.layout.feed_item, viewGroup, false));
     }
 
@@ -44,7 +44,7 @@ public class InstagramRecyclerAdapter extends ParallaxRecyclerAdapter<InstagramM
         return getData().size();
     }
 
-    public static class MediaViewHolder extends RecyclerView.ViewHolder{
+    public static class MediaViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.instagram_image)
         ImageView image;
@@ -57,7 +57,7 @@ public class InstagramRecyclerAdapter extends ParallaxRecyclerAdapter<InstagramM
             ButterKnife.bind(this, itemView);
         }
 
-        public void populate(InstagramMedia media){
+        public void populate(InstagramMedia media) {
             Glide.with(image.getContext()).load(media.getUrl()).into(image);
             description.setText(media.getDescription());
         }

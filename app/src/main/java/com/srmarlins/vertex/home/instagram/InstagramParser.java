@@ -19,13 +19,13 @@ public class InstagramParser {
 
     }
 
-    public List<InstagramMedia> parseHtmlForImageUrls(String html){
+    public List<InstagramMedia> parseHtmlForImageUrls(String html) {
         List<InstagramMedia> urls = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         Elements tagList = doc.select("div._jjzlb");
-        for(Element element : tagList){
+        for (Element element : tagList) {
             Elements images = element.select("img");
-            for(Element image : images) {
+            for (Element image : images) {
                 urls.add(new InstagramMedia(image.absUrl("src"), image.attr("alt"), InstagramMedia.stringToType(element.text())));
             }
         }
