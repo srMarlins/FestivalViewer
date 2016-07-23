@@ -2,11 +2,10 @@ package com.srmarlins.vertex.home;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
-import com.poliveira.parallaxrecyclerview.HeaderLayoutManagerFixed;
 import com.srmarlins.vertex.R;
 import com.srmarlins.vertex.common.BaseActivity;
 import com.srmarlins.vertex.home.instagram.InstagramApi;
@@ -29,6 +28,7 @@ public class HomeActivity extends BaseActivity implements InstagramApi.Instagram
     SwipeRefreshLayout swipeRefreshLayout;
 
     private InstagramApi vertexApi;
+    private InstagramRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,9 @@ public class HomeActivity extends BaseActivity implements InstagramApi.Instagram
                 vertexApi.getInstagramTagUrls(HomeActivity.this, HomeActivity.this, InstagramTagFactory.getTags());
             }
         });
+        instagramView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new InstagramRecyclerAdapter(new ArrayList<InstagramMedia>());
+        instagramView.setAdapter(adapter);
         setRefreshing(true);
         vertexApi.getInstagramTagUrls(HomeActivity.this, HomeActivity.this, InstagramTagFactory.getTags());
     }
@@ -50,6 +53,13 @@ public class HomeActivity extends BaseActivity implements InstagramApi.Instagram
     public void onPhotosReceived(List<InstagramMedia> photoUrl) {
         Toast.makeText(HomeActivity.this, "Photos received :" + photoUrl.size(), Toast.LENGTH_SHORT).show();
         setRefreshing(false);
+        adapter.setData(photoUrl);
+        instagramView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -58,7 +68,7 @@ public class HomeActivity extends BaseActivity implements InstagramApi.Instagram
         setRefreshing(false);
     }
 
-    public void setRefreshing(final boolean refreshing){
+    public void setRefreshing(final boolean refreshing) {
         swipeRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -35,5 +35,5 @@ dependencies {
     compile 'com.cleveroad:loopbar:1.0.0'
     compile 'com.android.support:support-v4:24.1.0'
     compile 'com.github.kanytu:android-parallax-recyclerview:v1.7'
-    compile 'com.github.lubeast:PullToRefresh:1.0.1'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 }

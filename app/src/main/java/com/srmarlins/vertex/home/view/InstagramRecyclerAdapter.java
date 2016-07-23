@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.poliveira.parallaxrecyclerview.ParallaxRecyclerAdapter;
 import com.srmarlins.vertex.R;
 import com.srmarlins.vertex.home.instagram.model.InstagramMedia;
 
@@ -21,27 +20,32 @@ import butterknife.ButterKnife;
 /**
  * Created by JaredFowler on 7/22/2016.
  */
-public class InstagramRecyclerAdapter extends ParallaxRecyclerAdapter<InstagramMedia> {
+public class InstagramRecyclerAdapter extends RecyclerView.Adapter<InstagramRecyclerAdapter.MediaViewHolder> {
+
+    private List<InstagramMedia> data;
 
     public InstagramRecyclerAdapter(List<InstagramMedia> data) {
-        super(data);
+        this.data = data;
     }
 
     @Override
-    public void onBindViewHolderImpl(RecyclerView.ViewHolder viewHolder, ParallaxRecyclerAdapter<InstagramMedia> parallaxRecyclerAdapter, int i) {
-        MediaViewHolder mediaViewHolder = (MediaViewHolder) viewHolder;
-        mediaViewHolder.populate(getData().get(i));
+    public MediaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return new MediaViewHolder(inflater.inflate(R.layout.feed_item, parent, false));
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolderImpl(ViewGroup viewGroup, ParallaxRecyclerAdapter<InstagramMedia> parallaxRecyclerAdapter, int i) {
-        LayoutInflater inflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return new MediaViewHolder(inflater.inflate(R.layout.feed_item, viewGroup, false));
+    public void onBindViewHolder(MediaViewHolder holder, int position) {
+        holder.populate(data.get(position));
     }
 
     @Override
-    public int getItemCountImpl(ParallaxRecyclerAdapter<InstagramMedia> parallaxRecyclerAdapter) {
-        return getData().size();
+    public int getItemCount() {
+        return data.size();
+    }
+
+    public void setData(List<InstagramMedia> data) {
+        this.data = data;
     }
 
     public static class MediaViewHolder extends RecyclerView.ViewHolder {
@@ -57,9 +61,14 @@ public class InstagramRecyclerAdapter extends ParallaxRecyclerAdapter<InstagramM
             ButterKnife.bind(this, itemView);
         }
 
-        public void populate(InstagramMedia media) {
-            Glide.with(image.getContext()).load(media.getUrl()).into(image);
-            description.setText(media.getDescription());
+        public void populate(final InstagramMedia media) {
+            image.post(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.with(image.getContext()).load(media.getUrl()).into(image);
+                    description.setText(media.getDescription());
+                }
+            });
         }
     }
 }
