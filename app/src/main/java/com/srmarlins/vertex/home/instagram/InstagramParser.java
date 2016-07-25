@@ -8,7 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by JaredFowler on 7/22/2016.
@@ -19,8 +18,8 @@ public class InstagramParser {
 
     }
 
-    public List<InstagramMedia> parseHtmlForImageUrls(String html) {
-        List<InstagramMedia> urls = new ArrayList<>();
+    public ArrayList<InstagramMedia> parseHtmlForImageUrls(String html) {
+        ArrayList<InstagramMedia> urls = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         Elements tagList = doc.select("div._jjzlb");
         for (Element element : tagList) {

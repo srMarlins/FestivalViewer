@@ -12,6 +12,10 @@ import java.util.List;
  * Created by Jared on 7/21/2016.
  */
 public class BottomBarItemFactory {
+    public static final int HOME_POS = 0;
+    public static final int SCHEDULE_POS = 1;
+    public static final int MAP_POS = 2;
+
     public static List<ICategoryItem> getCategoryItems() {
         List<ICategoryItem> items = new ArrayList<>();
         items.add(new CategoryItem(R.drawable.enls_ic_local_taxi, "Home"));

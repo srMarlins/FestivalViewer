@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 import com.srmarlins.vertex.R;
 import com.srmarlins.vertex.home.instagram.model.InstagramMedia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class InstagramApi {
 
 
     public interface InstagramPhotoListener {
-        void onPhotosReceived(List<InstagramMedia> photoUrls);
+        void onPhotosReceived(ArrayList<InstagramMedia> photoUrls);
 
         void onError(Throwable t);
     }
@@ -64,11 +65,10 @@ public class InstagramApi {
         public void processHTML(String html) {
             if (listener != null) {
                 InstagramParser instagramParser = new InstagramParser();
-                List<InstagramMedia> tagUrls = instagramParser.parseHtmlForImageUrls(html);
+                ArrayList<InstagramMedia> tagUrls = instagramParser.parseHtmlForImageUrls(html);
                 listener.onPhotosReceived(tagUrls);
                 listener = null;
             }
         }
     }
-
 }
